@@ -11,3 +11,4 @@ obj/
 _ReSharper*/
 TestResult.xml
 packages/
+nuget/
