@@ -63,11 +63,11 @@ nuspec :create_spec => [:core_copy_to_nuspec, :nuget_folder] do |nuspec|
   nuspec.id = "Garlic"
   nuspec.version = GARLIC_VERSION
   nuspec.authors = "Peter Wilhelmsson"
-  nuspec.owners = "Lundalogik, Peter Wilhelmsson"
+  nuspec.owners = "Peter Wilhelmsson"
   nuspec.description = "Migrate databses using .net."
   nuspec.title = "Garlic"
   nuspec.language = "en-US"
-  nuspec.projectUrl = "http://lusrvdev:9999/summary/garlic.git"
+  nuspec.projectUrl = "https://github.com/2hdddg"
   nuspec.working_directory = "nuget"
   nuspec.output_file = "Garlic.nuspec"
   nuspec.dependency('Npgsql','2.0.12.1')
@@ -77,10 +77,5 @@ task :pack => [:create_spec] do
   cd nuget_folder do
     sh "..\\.nuget\\NuGet.exe pack Garlic.nuspec"
   end
-end
-
-desc "Publish to lundalogik nuget packages"
-task :publish => [:pack] do
-  cp(Dir.glob(File.join(nuget_folder,'*.nupkg')), '\\\\lusrvdev\\packages')
 end
 
