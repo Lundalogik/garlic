@@ -58,7 +58,7 @@ end
 
 desc "create the nuspec file"
 nuspec :create_spec => [:core_copy_to_nuspec, :nuget_folder] do |nuspec|
-  GARLIC_VERSION = '1.0.0.2'
+  GARLIC_VERSION = '1.0.0.3'
 
   nuspec.id = "GarlicMigrations"
   nuspec.version = GARLIC_VERSION
@@ -70,9 +70,10 @@ nuspec :create_spec => [:core_copy_to_nuspec, :nuget_folder] do |nuspec|
   nuspec.projectUrl = "https://github.com/2hdddg"
   nuspec.working_directory = "nuget"
   nuspec.output_file = "GarlicMigrations.nuspec"
-  nuspec.dependency('Npgsql','2.0.14.3')
+  nuspec.dependency('Npgsql','2.2.0')
 end
 
+desc "package nuget package"
 task :pack => [:create_spec] do
   cd nuget_folder do
     sh "..\\.nuget\\NuGet.exe pack GarlicMigrations.nuspec"
