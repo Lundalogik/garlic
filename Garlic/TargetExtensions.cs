@@ -10,6 +10,12 @@ namespace Garlic
             target.AddRevision(new Revision(name, (server, database) => database.Batch(script)));
         }
 
+        public static void Sql(this Target target, string name, string script, string[] tags, params object[] f)
+        {
+            script = f != null ? string.Format(script, f) : script;
+            target.AddRevision(new Revision(name, (server, database) => database.Batch(script)) { Tags = tags } );
+        }
+
         public static void SqlInServerContext(this Target target, string name, string script, params object[] f)
         {
             script = f != null ? string.Format(script, f) : script;
@@ -24,12 +30,7 @@ namespace Garlic
 
         public static void Code(this Target target, string name, Action<IServer, IDatabase> up)
         {
-            target.AddRevision(new Revision(name, WrapWithTransaction(up)));
-        }
-
-        private static Action<IServer, IDatabase> WrapWithTransaction(Action<IServer, IDatabase> action)
-        {
-            return action;
+            target.AddRevision(new Revision(name, up));
         }
     }
 }
