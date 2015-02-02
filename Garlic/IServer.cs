@@ -10,6 +10,7 @@
         string ConnectionString { get; }
         T GetSingle<T>(SqlCommand sqlCommand);
     }
+
     public static class ServerExtensions
     {
         public static T GetSingle<T>(this IServer self, string sqlCommand)

@@ -8,6 +8,7 @@ namespace Garlic
     {
         PostgreSql,
     }
+
     public interface IDatabase
     {
         bool VerifyConnection();
@@ -20,6 +21,7 @@ namespace Garlic
         void SetRevision(string name);
         string GetRevision();
     }
+
     public static class DatabaseExtensions
     {
         public static T GetSingle<T>(this IDatabase self, string sqlCommand)
@@ -39,6 +41,7 @@ namespace Garlic
             database.Batch(new[] { sqlCommand });
         }
     }
+
     public class SqlCommand
     {
         public string CommandText { get; set; }

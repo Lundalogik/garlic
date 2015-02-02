@@ -22,6 +22,10 @@ namespace Garlic
         }
 
         public string Name { get; private set; }
+        /// <summary>
+        /// For custom metadata
+        /// </summary>
+        public string[] Tags { get; set; }
 
         public void Apply(IServer server, IDatabase database)
         {

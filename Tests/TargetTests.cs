@@ -8,23 +8,24 @@ namespace Tests
     [TestFixture]
     public class TargetTests
     {
-        private FileStream file;
-        private StreamWriter streamWriter;
+        private FileStream _file;
+        private StreamWriter _streamWriter;
 
         [SetUp]
         public void SetUp()
         {
-            file = File.OpenWrite("targettests.log");
-            streamWriter = new StreamWriter(file);
-            Logger.Out = streamWriter;
+            _file = File.OpenWrite("targettests.log");
+            _streamWriter = new StreamWriter(_file);
+            Logger.Out = _streamWriter;
         }
+
         [TearDown]
         public void TearDown()
         {
             Logger.ResetOut();
-            streamWriter.Flush();
-            streamWriter.Close();
-            file.Close();
+            _streamWriter.Flush();
+            _streamWriter.Close();
+            _file.Close();
         }
 
 // ReSharper disable InconsistentNaming
@@ -33,7 +34,7 @@ namespace Tests
         {
             var target = new Target(new ServerFake(), new DatabaseFake { VerifyConnectionValue = true});
 
-            Assert.Throws<GarlicException>(() => target.Sync(createDatabase: true));
+            Assert.Throws<GarlicException>(() => target.Sync());
         }
 
         [Test]
@@ -48,7 +49,7 @@ namespace Tests
                     database.VerifyConnectionValue = true;
                 }));
 
-            target.Sync(createDatabase: true);
+            target.Sync();
 
             Assert.True(appliedFirstRevision);
         }
@@ -59,7 +60,7 @@ namespace Tests
             var database = new DatabaseFake { VerifyConnectionValue = false };
             var target = new Target(new ServerFake(), database);
             target.AddRevision(new Revision("create", (s, d) => database.VerifyConnectionValue = true));
-            target.Sync(createDatabase: true);
+            target.Sync();
 
             Assert.That(database.GetRevision(), Is.EqualTo("create"));
         }

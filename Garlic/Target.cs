@@ -15,7 +15,7 @@ namespace Garlic
 
         private void InvokeAfterSync()
         {
-            EventHandler handler = AfterSync;
+            var handler = AfterSync;
             if (handler != null) handler(_server, _database);
         }
 
@@ -47,6 +47,22 @@ namespace Garlic
             _database.SetRevision(revision.Name);            
         }
 
+        private IList<Revision> GetRevisionsToApply(string currentRevisionName)
+        {
+            // Check that current revision exists
+            var current = _revisions.SingleOrDefault(r => r.Name == currentRevisionName);
+            if (current == null)
+            {
+                Logger.Error("Current revision {0} can not be found!", currentRevisionName);
+                throw new RevisionNotFoundException(currentRevisionName);
+            }
+
+            return _revisions
+                .SkipWhile(r => r.Name != current.Name)
+                .Skip(1)
+                .ToList();
+        }
+
         public void Sync(bool createDatabase = true)
         {
             Logger.Info("Trying to connect to server");
@@ -62,7 +78,7 @@ namespace Garlic
             {
                 if (createDatabase)
                 {
-                    Create();                    
+                    Create();
                 }
                 else
                 {
@@ -77,17 +93,7 @@ namespace Garlic
             }
 
             var currentRevisionName = _database.GetRevision();
-
-            // Check that current revision exists
-            if (_revisions.Where(r => r.Name == currentRevisionName).Count() == 0)
-            {
-                Logger.Error("Current revision {0} can not be found!", currentRevisionName);
-                throw new RevisionNotFoundException(currentRevisionName);
-            }
-
-            var revisionsToApply = _revisions
-                .SkipWhile(r => r.Name != currentRevisionName)
-                .Skip(1);
+            var revisionsToApply = GetRevisionsToApply(currentRevisionName);
 
             Logger.Info("Found {0} revisions to apply", revisionsToApply.Count());
 
@@ -108,6 +114,19 @@ namespace Garlic
             }
 
             InvokeAfterSync();
+        }
+
+        public IEnumerable<Revision>  GetRevisionsToApply()
+        {
+            Logger.Info("Trying to open database " + _database.Name);
+            if (!_database.VerifyConnection())
+            {
+                Logger.Error("Database {0} does not exist or can not be accessed", _database.Name);
+                throw new GarlicException("Database cannot be opened");
+            }
+
+            var currentRevisionName = _database.GetRevision();
+            return GetRevisionsToApply(currentRevisionName);
         }
 
         public void AddRevision(Revision revision)
