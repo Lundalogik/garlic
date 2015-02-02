@@ -29,12 +29,7 @@ namespace Garlic
 
         private static Action<IServer, IDatabase> WrapWithTransaction(Action<IServer, IDatabase> action)
         {
-            return (server, database) => {
-                {
-                    action(server, database); 
-                
-                }
-            };
+            return action;
         }
     }
 }
