@@ -1,3 +1,4 @@
+# coding: iso-8859-1
 
 require 'albacore'
 
@@ -58,18 +59,18 @@ end
 
 desc "create the nuspec file"
 nuspec :create_spec => [:core_copy_to_nuspec, :nuget_folder] do |nuspec|
-  GARLIC_VERSION = '1.2.0.0'
+  GARLIC_VERSION = '1.3.0.0'
 
   nuspec.id = "GarlicMigrations"
   nuspec.version = GARLIC_VERSION
-  nuspec.authors = "Peter Wilhelmsson"
+  nuspec.authors = "Peter Wilhelmsson, Anders Pålsson, Petter Sandholdt"
   nuspec.owners = "Lundalogik"
   nuspec.description = "Migrate databases using .net."
   nuspec.title = "Garlic Migrations"
   nuspec.language = "en-US"
   nuspec.working_directory = "nuget"
   nuspec.output_file = "GarlicMigrations.nuspec"
-  nuspec.dependency('Npgsql','2.2.5')
+  nuspec.dependency('Npgsql','3.0.2')
 end
 
 desc "package nuget package"

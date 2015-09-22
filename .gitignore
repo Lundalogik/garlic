@@ -12,3 +12,5 @@ _ReSharper*/
 TestResult.xml
 packages/
 nuget/
+vendor/
+.bundle/
