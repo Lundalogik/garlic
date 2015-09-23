@@ -11,14 +11,17 @@ namespace Garlic.Database
 
         public PostgreSqlDatabase(string connectionString, string databaseName)
         {
-            _connectionString = connectionString;
             _databaseName = databaseName;
+            _connectionString = String.Format("{0};Database={1}", connectionString, databaseName);
         }
 
+        // Returns an Open connection. You must either call Close
+        // explicit or use the connection in a block (that dispose
+        // automagically).
         private NpgsqlConnection GetConnection()
         {
             var connection = new NpgsqlConnection(_connectionString);
-            connection.ChangeDatabase(_databaseName);
+            connection.Open();
             return connection;
         }
 
@@ -28,7 +31,7 @@ namespace Garlic.Database
             {
                 try
                 {
-                    connection.ChangeDatabase(_databaseName);
+                    connection.Open();
                     return true;
                 }
                 catch
