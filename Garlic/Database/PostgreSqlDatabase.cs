@@ -50,7 +50,7 @@ namespace Garlic.Database
                 {
                     try
                     {
-                        command.CommandTimeout = 60 * 10; // Ten minutes
+                        command.CommandTimeout = connection.CommandTimeout;
                         command.Transaction = transaction;
                         command.ExecuteNonQuery();
                     }
