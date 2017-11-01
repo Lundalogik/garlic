@@ -59,11 +59,11 @@ end
 
 desc "create the nuspec file"
 nuspec :create_spec => [:core_copy_to_nuspec, :nuget_folder] do |nuspec|
-  GARLIC_VERSION = '1.4.0.0'
+  GARLIC_VERSION = '1.5.0.0'
 
   nuspec.id = "GarlicMigrations"
   nuspec.version = GARLIC_VERSION
-  nuspec.authors = "Peter Wilhelmsson, Anders Pålsson, Petter Sandholdt"
+  nuspec.authors = "Peter Wilhelmsson, Anders PÃ¥lsson, Petter Sandholdt"
   nuspec.owners = "Lundalogik"
   nuspec.description = "Migrate databases using .net."
   nuspec.title = "Garlic Migrations"
