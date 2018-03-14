@@ -2,8 +2,8 @@ source 'http://rubygems.org'
 
 gem 'builder'
 gem 'rake'
-gem 'rubyzip', "~> 0.9.9"
+gem 'rubyzip'
 gem 'bundler'
 
-gem 'albacore', "~> 0.3.6"
+gem 'albacore', "~> 2.8.0"
 

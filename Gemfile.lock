@@ -1,18 +1,32 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    albacore (0.3.6)
-      rubyzip (< 1.0.0)
+    albacore (2.8.0)
+      map (~> 6.5)
+      nokogiri (~> 1.5)
+      rake (~> 10)
+      semver2 (~> 3.4)
     builder (3.2.2)
+    map (6.6.0)
+    mini_portile2 (2.3.0)
+    nokogiri (1.8.2-x64-mingw32)
+      mini_portile2 (~> 2.3.0)
+    nokogiri (1.8.2-x86-mingw32)
+      mini_portile2 (~> 2.3.0)
     rake (10.3.2)
-    rubyzip (0.9.9)
+    rubyzip (1.2.1)
+    semver2 (3.4.2)
 
 PLATFORMS
+  x64-mingw32
   x86-mingw32
 
 DEPENDENCIES
-  albacore (~> 0.3.6)
+  albacore (~> 2.8.0)
   builder
   bundler
   rake
-  rubyzip (~> 0.9.9)
+  rubyzip
+
+BUNDLED WITH
+   1.16.1
