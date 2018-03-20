@@ -75,7 +75,7 @@ end
 
 desc "package nuget package"
 nugets_pack :pack => [:build_release, :clean_nuget_folder, :nuget_folder] do |p|
-  GARLIC_VERSION = '1.6.0.0'
+  GARLIC_VERSION = '1.6.0.1'
   
   p.configuration = 'Release'
   p.files   = FileList['**/*.{csproj,fsproj,nuspec}'].exclude(/Tests/)
@@ -93,6 +93,6 @@ nugets_pack :pack => [:build_release, :clean_nuget_folder, :nuget_folder] do |p|
     m.description = "Migrate databases using .net."
     m.title = "Garlic Migrations"
     m.language = "en-US"
-    m.add_dependency 'Npgsql','3.0.2'
+    m.add_dependency 'Npgsql','3.2.7'
   end
 end
