@@ -14,3 +14,5 @@ packages/
 nuget/
 vendor/
 .bundle/
+/.vs
+*.nuspec
