@@ -8,26 +8,6 @@ namespace Tests
     [TestFixture]
     public class TargetTests
     {
-        private FileStream _file;
-        private StreamWriter _streamWriter;
-
-        [SetUp]
-        public void SetUp()
-        {
-            _file = File.OpenWrite("targettests.log");
-            _streamWriter = new StreamWriter(_file);
-            Logger.Out = _streamWriter;
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            Logger.ResetOut();
-            _streamWriter.Flush();
-            _streamWriter.Close();
-            _file.Close();
-        }
-
 // ReSharper disable InconsistentNaming
         [Test]
         public void Sync_with_create_flag_should_throw_when_database_can_be_opened()
@@ -99,7 +79,7 @@ namespace Tests
 
             target.Sync(false);
 
-            Assert.True(applied1 && applied2);            
+            Assert.True(applied1 && applied2);
         }
 
         [Test]
@@ -133,7 +113,7 @@ namespace Tests
             Assert.True(afterSynced);
         }
 
-        [Test] 
+        [Test]
         public void Add_revision_with_duplicate_name_should_throw()
         {
             var target = new Target(new ServerFake(), new DatabaseFake { VerifyConnectionValue = false });
