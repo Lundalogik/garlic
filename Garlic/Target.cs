@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using log4net;
 
 namespace Garlic
 {
     public class Target
     {
+        private static readonly ILog Log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private readonly IServer _server;
         private readonly IDatabase _database;
         private readonly IList<Revision> _revisions = new List<Revision>();
@@ -16,7 +19,7 @@ namespace Garlic
         private void InvokeAfterSync()
         {
             var handler = AfterSync;
-            if (handler != null) handler(_server, _database);
+            handler?.Invoke(_server, _database);
         }
 
         public Target(IServer server, IDatabase database)
@@ -27,24 +30,24 @@ namespace Garlic
 
         private void Create()
         {
-            Logger.Info("Creating new database {0}", _database.Name);
+            Log.Info($"Creating new database {_database.Name}");
 
             // Try applying the first script as a boot
             var revision = _revisions.First();
             try
             {
-                revision.Apply(_server, _database);                
+                revision.Apply(_server, _database);
             }
             catch (Exception e)
             {
-                Logger.Error("Failed to create new database with revision '" + revision.Name + "'");
-                Logger.Error("Error: " + e.Message);
+                Log.Error("Failed to create new database with revision '" + revision.Name + "'");
+                Log.Error("Error: ", e);
                 throw;
             }
 
             if (!_database.VerifyConnection()) throw new Exception();
             _database.InitRevision();
-            _database.SetRevision(revision.Name);            
+            _database.SetRevision(revision.Name);
         }
 
         private IList<Revision> GetRevisionsToApply(string currentRevisionName)
@@ -53,7 +56,7 @@ namespace Garlic
             var current = _revisions.SingleOrDefault(r => r.Name == currentRevisionName);
             if (current == null)
             {
-                Logger.Error("Current revision {0} can not be found!", currentRevisionName);
+                Log.Error($"Current revision {currentRevisionName} can not be found!");
                 throw new RevisionNotFoundException(currentRevisionName);
             }
 
@@ -65,15 +68,15 @@ namespace Garlic
 
         public void Sync(bool createDatabase = true)
         {
-            Logger.Info("Trying to connect to server");
+            Log.Info("Trying to connect to server");
             if (!_server.VerifyConnection())
             {
-                Logger.Error("Failed to connect to server");
+                Log.Error("Failed to connect to server");
                 throw new Exception();
             }
-            Logger.Info("Connected to server.");
+            Log.Info("Connected to server.");
 
-            Logger.Info("Trying to open database " + _database.Name);
+            Log.Info("Trying to open database " + _database.Name);
             if (!_database.VerifyConnection())
             {
                 if (createDatabase)
@@ -82,32 +85,32 @@ namespace Garlic
                 }
                 else
                 {
-                    Logger.Error("Database {0} does not exist or can not be accessed", _database.Name);
+                    Log.Error($"Database {_database.Name} does not exist or can not be accessed");
                     throw new GarlicException("Database cannot be opened");
                 }
             }
             else if (createDatabase)
             {
-                Logger.Error("Cannot create database. Database {0} already exists.", _database.Name);
+                Log.Error($"Cannot create database. Database {_database.Name} already exists.");
                 throw new GarlicException("Database already exists");
             }
 
             var currentRevisionName = _database.GetRevision();
             var revisionsToApply = GetRevisionsToApply(currentRevisionName);
 
-            Logger.Info("Found {0} revisions to apply", revisionsToApply.Count());
+            Log.Info($"Found {revisionsToApply.Count} revisions to apply");
 
             foreach (var revision in revisionsToApply)
             {
                 try
                 {
-                    Logger.Info("Applying revision '{0}'", revision.Name);
+                    Log.Info($"Applying revision '{revision.Name}'");
                     revision.Apply(_server, _database);
                 }
                 catch (Exception e)
                 {
-                    Logger.Error("Failed to run revision '" + revision.Name + "'");
-                    Logger.Error("Error: " + e.Message);
+                    Log.Error("Failed to run revision '" + revision.Name + "'");
+                    Log.Error("Error: ", e);
                     throw;
                 }
                 _database.SetRevision(revision.Name);
@@ -118,10 +121,10 @@ namespace Garlic
 
         public IEnumerable<Revision>  GetRevisionsToApply()
         {
-            Logger.Info("Trying to open database " + _database.Name);
+            Log.Info("Trying to open database " + _database.Name);
             if (!_database.VerifyConnection())
             {
-                Logger.Error("Database {0} does not exist or can not be accessed", _database.Name);
+                Log.Error($"Database {_database.Name} does not exist or can not be accessed");
                 throw new GarlicException("Database cannot be opened");
             }
 
@@ -133,7 +136,7 @@ namespace Garlic
         {
             if (_revisions.Any(r => r.Name == revision.Name))
             {
-                throw new GarlicException(string.Format("Duplicate revision name found: {0}", revision.Name));
+                throw new GarlicException($"Duplicate revision name found: {revision.Name}");
             }
 
             _revisions.Add(revision);
