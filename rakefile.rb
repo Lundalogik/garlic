@@ -60,27 +60,22 @@ def nuget_folder
   return 'nuget'
 end
 
-def nuget_lib
-  return File.join(nuget_folder, 'lib', '451')
-end
-
 task :clean_nuget_folder do
   rm_rf(nuget_folder)
 end
 
 task :nuget_folder do
   mkdir_p(nuget_folder)
-  mkdir_p(nuget_lib)
 end
 
 desc "package nuget package"
 nugets_pack :pack => [:build_release, :clean_nuget_folder, :nuget_folder] do |p|
-  GARLIC_VERSION = '1.6.0.1'
+  GARLIC_VERSION = '1.7.0.0'
   
   p.configuration = 'Release'
   p.files   = FileList['**/*.{csproj,fsproj,nuspec}'].exclude(/Tests/)
   p.out     = 'nuget'
-  p.target  = 'net451'
+  p.target  = 'net472'
   p.exe     = '.nuget/nuget.exe'
   # This line will leave the nuspec so you can inspect and verify it, take it out if you don't want the nuspec file to
   # stay around.
