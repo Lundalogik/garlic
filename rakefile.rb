@@ -70,7 +70,7 @@ end
 
 desc "package nuget package"
 nugets_pack :pack => [:build_release, :clean_nuget_folder, :nuget_folder] do |p|
-  GARLIC_VERSION = '1.7.0.0'
+  GARLIC_VERSION = '1.7.0.1'
   
   p.configuration = 'Release'
   p.files   = FileList['**/*.{csproj,fsproj,nuspec}'].exclude(/Tests/)
