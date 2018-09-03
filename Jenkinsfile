@@ -18,7 +18,7 @@ pipeline {
 
         stage('tests') {
             steps {
-                powershell 'packages\\NUnit.ConsoleRunner.2.6.4\\tools\\nunit3-console.exe Tests\\bin\\Release\\Tests.dll --result="nunit-result.xml;format=nunit2"'
+                powershell 'packages\\NUnit.Runner.2.6.4\\tools\\nunit3-console.exe Tests\\bin\\Release\\Tests.dll --result="nunit-result.xml;format=nunit2"'
             }
             post {
                 always {
