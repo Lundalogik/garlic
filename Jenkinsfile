@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-bpipeline {
+pipeline {
     agent { label 'jenkins-slave-windows'}
     options { 
         timestamps() 
