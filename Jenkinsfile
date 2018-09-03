@@ -7,7 +7,7 @@ pipeline {
     }
 
     stages {
-        stage('Publish') {
+        stage('Build') {
             steps {
                 powershell '''
                     bundle install
@@ -16,9 +16,9 @@ pipeline {
             }
         }
 
-        stage('tests') {
+        stage('Tests') {
             steps {
-                powershell '.\\packages\\NUnit.Runners.2.6.4\\tools\\nunit-console.exe .\\Tests\\bin\\Release\\Tests.dll --result="nunit-result.xml"'
+                bat '.\\packages\\NUnit.Runners.2.6.4\\tools\\nunit-console.exe .\\Tests\\bin\\Release\\Tests.dll --result="nunit-result.xml"'
             }
             post {
                 always {
@@ -27,7 +27,7 @@ pipeline {
             }
         }
 
-        stage('Create nuget') {
+        stage('Create Nuget') {
             steps {
                 echo "Not done yet :-("
             }
