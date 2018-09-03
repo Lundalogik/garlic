@@ -11,7 +11,7 @@ pipeline {
             steps {
                 powershell '''
                     bundle install
-                    bundle exec rake pack
+                    bundle exec rake build_release
                 '''
             }
         }
@@ -24,6 +24,12 @@ pipeline {
                 always {
                     nunit testResultsPattern: 'nunit-result.xml'
                 }
+            }
+        }
+
+        stage('Create nuget') {
+            steps {
+                echo "Not done yet :-("
             }
         }
     }
