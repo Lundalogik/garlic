@@ -18,7 +18,7 @@ pipeline {
 
         stage('Tests') {
             steps {
-                bat '.\\packages\\NUnit.Runners.2.6.4\\tools\\nunit-console.exe .\\Tests\\bin\\Release\\Tests.dll --result="nunit-result.xml"'
+                bat 'src\\packages\\NUnit.ConsoleRunner.3.8.0\\tools\\nunit3-console.exe src\\Go.Tests.Integration\\bin\\Release\\Go.Tests.Integration.dll --result="nunit-result.xml;format=nunit2"'
             }
             post {
                 always {
