@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
 
-pipeline {
+bpipeline {
     agent { label 'jenkins-slave-windows'}
     options { 
         timestamps() 
@@ -18,7 +18,7 @@ pipeline {
 
         stage('tests') {
             steps {
-                powershell 'src\\packages\\NUnit.ConsoleRunner.3.8.0\\tools\\nunit3-console.exe Tests\\bin\\Release\\Tests.dll --result="nunit-result.xml;format=nunit2"'
+                powershell 'packages\\NUnit.ConsoleRunner.2.6.4\\tools\\nunit3-console.exe Tests\\bin\\Release\\Tests.dll --result="nunit-result.xml;format=nunit2"'
             }
             post {
                 always {
