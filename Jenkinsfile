@@ -33,10 +33,4 @@ pipeline {
             }
         }
     }
-
-    post {
-        cleanup {
-            step([$class: 'WsCleanup'])
-        }
-    }
 }
