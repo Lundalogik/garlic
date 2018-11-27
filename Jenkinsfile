@@ -57,7 +57,7 @@ pipeline {
                         withCredentials([string(credentialsId: 'nugetApiKey', variable: 'APIKEY')]) {
                             powershell '''
                                 $env:BUILD_PREFIX = -join("pr", $ENV:CHANGE_ID,".",$ENV:BUILD_ID)
-                                bundle exec rake "publish[$ENV:APIKEY. $ENV:BUILD_PREFIX]"
+                                bundle exec rake "publish[$ENV:APIKEY, $ENV:BUILD_PREFIX]"
                             '''
                         }
                     }
