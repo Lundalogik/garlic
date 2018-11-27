@@ -38,7 +38,7 @@ pipeline {
                         '''
                     } else {
                         powershell '''
-                            $env:BUILD_PREFIX = -join("rc-", $ENV:CHANGE_ID,".",$ENV:BUILD_ID)
+                            $env:BUILD_PREFIX = -join("pr", $ENV:CHANGE_ID,".",$ENV:BUILD_ID)
                             bundle exec rake pack[$ENV:BUILD_PREFIX]
                         '''
                     }
@@ -54,9 +54,12 @@ pipeline {
                             bundle exec rake publish
                         '''
                     } else {
-                        powershell '''
-                            bundle exec rake publish['rc.${ENV:BUILD_ID}    ']
-                        '''
+                        withCredentials([string(credentialsId: 'nugetApiKey', variable: 'APIKEY')]) {
+                            powershell '''
+                                $env:BUILD_PREFIX = -join("pr", $ENV:CHANGE_ID,".",$ENV:BUILD_ID)
+                                bundle exec rake "publish[$ENV:APIKEY. $ENV:BUILD_PREFIX]"
+                            '''
+                        }
                     }
                 }
             }
