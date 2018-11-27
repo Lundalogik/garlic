@@ -30,9 +30,6 @@ pipeline {
         }
 
         stage('Create Nuget package') {
-            when {
-                branch 'master'
-            }
             steps {
                 script {
                     if (env.BRANCH_NAME == 'master') {
