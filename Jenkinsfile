@@ -18,7 +18,9 @@ pipeline {
 
         stage('Tests') {
             steps {
-                bat 'packages\\NUnit.ConsoleRunner.3.8.0\\tools\\nunit3-console.exe .\\Tests\\bin\\Release\\Tests.dll --result="nunit-result.xml;format=nunit2"'
+                powershell '''
+                    bundle exec rake tests
+                '''
             }
             post {
                 always {
@@ -27,7 +29,7 @@ pipeline {
             }
         }
 
-        stage('Create Nuget') {
+        stage('Upload Nuget') {
             steps {
                 echo "Not done yet :-("
             }
