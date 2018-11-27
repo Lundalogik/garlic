@@ -38,7 +38,7 @@ pipeline {
                         '''
                     } else {
                         powershell '''
-                            $env:BUILD_PREFIX = -join("rc.", $ENV:JOB_BASE_NAME.ToLower(),"_",$ENV:BUILD_ID)
+                            $env:BUILD_PREFIX = -join("rc-", $ENV:CHANGE_ID,".",$ENV:BUILD_ID)
                             bundle exec rake pack[$ENV:BUILD_PREFIX]
                         '''
                     }
