@@ -1,9 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2050
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Garlic", "Garlic\Garlic.csproj", "{CA3F4C77-1023-4FB8-94D5-67CE13F2DB95}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{B2FECE23-E42B-4616-911B-07D49BACDD88}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{923E12D9-71C0-4D03-9F42-666764CDA02D}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{923E12
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{2FCA8C98-58AD-460D-96F2-C2CB1C3C929D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,15 +30,20 @@ Global
 		{CA3F4C77-1023-4FB8-94D5-67CE13F2DB95}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CA3F4C77-1023-4FB8-94D5-67CE13F2DB95}.Release|x86.ActiveCfg = Release|Any CPU
 		{CA3F4C77-1023-4FB8-94D5-67CE13F2DB95}.Release|x86.Build.0 = Release|Any CPU
-		{B2FECE23-E42B-4616-911B-07D49BACDD88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2FECE23-E42B-4616-911B-07D49BACDD88}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2FECE23-E42B-4616-911B-07D49BACDD88}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B2FECE23-E42B-4616-911B-07D49BACDD88}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2FECE23-E42B-4616-911B-07D49BACDD88}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B2FECE23-E42B-4616-911B-07D49BACDD88}.Release|x86.ActiveCfg = Release|Any CPU
+		{2FCA8C98-58AD-460D-96F2-C2CB1C3C929D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FCA8C98-58AD-460D-96F2-C2CB1C3C929D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FCA8C98-58AD-460D-96F2-C2CB1C3C929D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2FCA8C98-58AD-460D-96F2-C2CB1C3C929D}.Debug|x86.Build.0 = Debug|Any CPU
+		{2FCA8C98-58AD-460D-96F2-C2CB1C3C929D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FCA8C98-58AD-460D-96F2-C2CB1C3C929D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FCA8C98-58AD-460D-96F2-C2CB1C3C929D}.Release|x86.ActiveCfg = Release|Any CPU
+		{2FCA8C98-58AD-460D-96F2-C2CB1C3C929D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {82085AF9-31C4-4F0A-A8F2-856B091FB813}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = GarlicTests\GarlicTests.csproj
