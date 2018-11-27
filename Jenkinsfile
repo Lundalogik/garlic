@@ -39,12 +39,10 @@ pipeline {
                         powershell '''
                             bundle exec rake pack
                         '''
-                        } 
                     } else {
                         powershell '''
                             bundle exec rake pack['-rc.$ENV:BUILD_ID']
                         '''
-                        } 
                     }
                 }
             }
