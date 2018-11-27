@@ -11,6 +11,7 @@
     <Description>Migrate databases using .net.</Description>
     <Product>Garlic Migrations</Product>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageReleaseNotes>Update to .netstandard project</PackageReleaseNotes>
   </PropertyGroup>
 
   <ItemGroup>
