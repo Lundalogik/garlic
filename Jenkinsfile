@@ -38,7 +38,7 @@ pipeline {
                         '''
                     } else {
                         powershell '''
-                            bundle exec rake pack['-rc.$ENV:BUILD_ID']
+                            bundle exec rake pack['rc.${ENV:BUILD_ID}']
                         '''
                     }
                 }
@@ -46,13 +46,18 @@ pipeline {
         }
 
         stage('Publish Nuget package') {
-            when {
-                branch 'master'
-            }
             steps {
-                powershell '''
-                    bundle exec rake publish
-                '''
+                script {
+                    if (env.BRANCH_NAME == 'master') {
+                        powershell '''
+                            bundle exec rake publish
+                        '''
+                    } else {
+                        powershell '''
+                            bundle exec rake publish['rc.${ENV:BUILD_ID}']
+                        '''
+                    }
+                }
             }
         }
     }
