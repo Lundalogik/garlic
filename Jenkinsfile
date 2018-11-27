@@ -29,9 +29,35 @@ pipeline {
             }
         }
 
-        stage('Upload Nuget') {
+        stage('Create Nuget package') {
+            when {
+                branch 'master'
+            }
             steps {
-                echo "Not done yet :-("
+                script {
+                    if (env.BRANCH_NAME == 'master') {
+                        powershell '''
+                            bundle exec rake pack
+                        '''
+                        } 
+                    } else {
+                        powershell '''
+                            bundle exec rake pack['-rc.$ENV:BUILD_ID']
+                        '''
+                        } 
+                    }
+                }
+            }
+        }
+
+        stage('Publish Nuget package') {
+            when {
+                branch 'master'
+            }
+            steps {
+                powershell '''
+                    bundle exec rake publish
+                '''
             }
         }
     }

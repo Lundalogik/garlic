@@ -3,12 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Garlic</RootNamespace>
-    <Version>1.8.0.0</Version>
-    <Authors>Lime Technologies AB</Authors>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <VersionSuffix>$(VersionSuffix)</VersionSuffix>
+    <Version>1.8.0</Version>
+    <Version Condition=" '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</Version>
+    <Authors>Peter Wilhelmsson, Anders Pålsson, Petter Sandholdt</Authors>
     <Company>Lime Technologies AB</Company>
     <Description>Migrate databases using .net.</Description>
     <Product>Garlic Migrations</Product>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
