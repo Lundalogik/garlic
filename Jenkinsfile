@@ -38,7 +38,8 @@ pipeline {
                         '''
                     } else {
                         powershell '''
-                            bundle exec rake pack['rc.${ENV:BUILD_ID}']
+                            $env:BUILD_PREFIX = -join("rc.",$ENV:BUILD_ID)
+                            bundle exec rake pack['rc.${ENV:BUILD_PREFIX}']
                         '''
                     }
                 }
@@ -54,7 +55,7 @@ pipeline {
                         '''
                     } else {
                         powershell '''
-                            bundle exec rake publish['rc.${ENV:BUILD_ID}']
+                            bundle exec rake publish['rc.${ENV:BUILD_ID}    ']
                         '''
                     }
                 }
