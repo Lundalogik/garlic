@@ -18,7 +18,9 @@ pipeline {
 
         stage('Tests') {
             steps {
-                bat 'packages\\NUnit.ConsoleRunner.3.8.0\\tools\\nunit3-console.exe .\\Tests\\bin\\Release\\Tests.dll --result="nunit-result.xml;format=nunit2"'
+                powershell '''
+                    bundle exec rake tests
+                '''
             }
             post {
                 always {
@@ -27,9 +29,39 @@ pipeline {
             }
         }
 
-        stage('Create Nuget') {
+        stage('Create Nuget package') {
             steps {
-                echo "Not done yet :-("
+                script {
+                    if (env.BRANCH_NAME == 'master') {
+                        powershell '''
+                            bundle exec rake pack
+                        '''
+                    } else {
+                        powershell '''
+                            $env:BUILD_PREFIX = -join("pr", $ENV:CHANGE_ID,".",$ENV:BUILD_ID)
+                            bundle exec rake pack[$ENV:BUILD_PREFIX]
+                        '''
+                    }
+                }
+            }
+        }
+
+        stage('Publish Nuget package') {
+            steps {
+                script {
+                    if (env.BRANCH_NAME == 'master') {
+                        powershell '''
+                            bundle exec rake publish
+                        '''
+                    } else {
+                        withCredentials([string(credentialsId: 'nugetApiKey', variable: 'APIKEY')]) {
+                            powershell '''
+                                $env:BUILD_PREFIX = -join("pr", $ENV:CHANGE_ID,".",$ENV:BUILD_ID)
+                                bundle exec rake "publish[$ENV:APIKEY, $ENV:BUILD_PREFIX]"
+                            '''
+                        }
+                    }
+                }
             }
         }
     }

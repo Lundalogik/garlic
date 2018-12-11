@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using Garlic;
 using NUnit.Framework;
 
@@ -90,7 +89,7 @@ namespace Tests
             var target = new Target(new ServerFake(), database);
             target.AddRevision(new Revision("First", null));
             target.AddRevision(new Revision("Current", null));
-            target.AddRevision(new Revision("After", (s, d) => d = d));
+            target.AddRevision(new Revision("After", (s, d) => {}));
 
             target.Sync(false);
 
@@ -104,7 +103,7 @@ namespace Tests
             database.SetRevision("Current");
             var target = new Target(new ServerFake(), database);
             target.AddRevision(new Revision("Current", null));
-            target.AddRevision(new Revision("After", (s, d) => d = d ));
+            target.AddRevision(new Revision("After", (s, d) => { }));
             var afterSynced = false;
             target.AfterSync += (s, d) => afterSynced = true;
 

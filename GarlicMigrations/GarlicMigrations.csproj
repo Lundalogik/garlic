@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Garlic</RootNamespace>
+    <VersionSuffix>$(VersionSuffix)</VersionSuffix>
+    <Version>1.8.0</Version>
+    <Version Condition=" '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</Version>
+    <Authors>Peter Wilhelmsson, Anders Pålsson, Petter Sandholdt</Authors>
+    <Company>Lime Technologies AB</Company>
+    <Description>Migrate databases using .net.</Description>
+    <Product>Garlic Migrations</Product>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageReleaseNotes>Update to .netstandard project</PackageReleaseNotes>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="Npgsql" Version="4.0.3" />
+  </ItemGroup>
+
+</Project>
