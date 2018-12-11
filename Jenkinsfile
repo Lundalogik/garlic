@@ -50,9 +50,11 @@ pipeline {
             steps {
                 script {
                     if (env.BRANCH_NAME == 'master') {
-                        powershell '''
-                            bundle exec rake publish
-                        '''
+                        withCredentials([string(credentialsId: 'nugetApiKey', variable: 'APIKEY')]) {
+                            powershell '''
+                                bundle exec rake "publish[$ENV:APIKEY]"
+                            '''
+                        }
                     } else {
                         withCredentials([string(credentialsId: 'nugetApiKey', variable: 'APIKEY')]) {
                             powershell '''
