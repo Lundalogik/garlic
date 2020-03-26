@@ -5,7 +5,7 @@ task :default => [ :build, :tests ]
 solutionpath = File.join(File.dirname(__FILE__),'Garlic.sln')
 testpath = File.join(File.dirname(__FILE__),'\Tests\Tests.csproj')
 projpath = File.join(File.dirname(__FILE__),'\GarlicMigrations\GarlicMigrations.csproj')
-nugetpath = 'GarlicMigrations\bin\Release'
+nugetpath = File.join(File.dirname(__FILE__),'\GarlicMigrations\bin\release').gsub('/', '\\')
 
 desc "Build the solution (debug)"
 task :build do
