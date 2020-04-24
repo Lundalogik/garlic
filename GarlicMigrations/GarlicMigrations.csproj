@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Garlic</RootNamespace>
     <VersionSuffix>$(VersionSuffix)</VersionSuffix>
-    <Version>1.10.0</Version>
+    <Version>1.9.0</Version>
     <Version Condition=" '$(VersionSuffix)' != '' ">$(Version)-$(VersionSuffix)</Version>
     <Authors>Peter Wilhelmsson, Anders Pålsson, Petter Sandholdt</Authors>
     <Company>Lime Technologies AB</Company>
